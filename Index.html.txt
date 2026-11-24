@@ -1,0 +1,1848 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAYDREAM ♡</title>
+
+<style>
+:root {
+  --bg:#fff8fb;
+  --card:#ffffff;
+  --text:#392c35;
+  --muted:#927d89;
+  --accent:#c77d9e;
+  --soft:#f8e8ef;
+  --border:#f0dce5;
+  --shadow:0 5px 20px #5b344010;
+}
+
+* {box-sizing:border-box}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  transition:.25s;
+}
+
+button,input,textarea,select {font:inherit}
+button {cursor:pointer;border:0}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+.hidden {display:none!important}
+
+#app {min-height:100vh}
+
+h1,h2,h3 {font-family:Georgia,serif}
+
+h2 {font-size:28px}
+p {line-height:1.6}
+
+.muted {color:var(--muted)}
+
+.screen {
+  max-width:1100px;
+  margin:auto;
+  padding:25px;
+}
+
+.welcome {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.welcome-box {
+  max-width:600px;
+  padding:40px 20px;
+}
+
+.logo {
+  font-family:Georgia,serif;
+  font-size:clamp(43px,10vw,78px);
+  letter-spacing:7px;
+  margin:10px 0;
+}
+
+.tagline {
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.8;
+}
+
+.primary,.secondary,.danger,.small-btn {
+  padding:12px 18px;
+  border-radius:12px;
+  background:var(--accent);
+  color:white;
+  font-weight:bold;
+  margin:4px;
+}
+
+.secondary {
+  background:var(--soft);
+  color:var(--text);
+}
+
+.danger {background:#bd6666}
+
+.small-btn {
+  padding:8px 12px;
+  font-size:12px;
+}
+
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:19px;
+  margin:12px 0;
+  box-shadow:var(--shadow);
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:13px;
+}
+
+input,textarea,select {
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:var(--card);
+  color:var(--text);
+  margin:7px 0 12px;
+}
+
+textarea {resize:vertical;min-height:100px}
+
+label {
+  font-size:13px;
+  font-weight:bold;
+}
+
+.option-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
+  gap:10px;
+  margin:15px 0;
+}
+
+.option {
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--card);
+  color:var(--text);
+  text-align:left;
+}
+
+.option.selected {
+  border:2px solid var(--accent);
+  background:var(--soft);
+}
+
+.progress {
+  height:9px;
+  background:var(--soft);
+  border-radius:20px;
+  overflow:hidden;
+  margin:18px 0;
+}
+
+.progress div {
+  height:100%;
+  background:var(--accent);
+  transition:.3s;
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:17px 22px;
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+
+.brand {
+  font-family:Georgia,serif;
+  font-size:25px;
+  letter-spacing:3px;
+}
+
+.nav {
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:12px 15px;
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  scrollbar-width:thin;
+}
+
+.nav button {
+  white-space:nowrap;
+  background:transparent;
+  color:var(--muted);
+  padding:10px 13px;
+  border-radius:10px;
+}
+
+.nav button.active,.nav button:hover {
+  background:var(--soft);
+  color:var(--text);
+}
+
+#content {
+  max-width:1100px;
+  margin:auto;
+  padding:22px;
+}
+
+.hero {
+  padding:28px;
+  border-radius:22px;
+  background:var(--soft);
+  margin-bottom:20px;
+}
+
+.hero h1 {
+  font-size:34px;
+  margin:5px 0;
+}
+
+.stat {
+  font-size:27px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.pill {
+  background:var(--soft);
+  border-radius:20px;
+  padding:6px 10px;
+  font-size:12px;
+}
+
+.item {
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.checkline {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:12px 0;
+}
+
+.checkline input {width:auto;margin:0}
+
+.mood-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.mood-option {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px 5px;
+  color:var(--text);
+  font-size:25px;
+}
+
+.mood-option small {
+  display:block;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.theme-choice {
+  border:2px solid var(--border);
+  border-radius:13px;
+  padding:14px;
+  text-align:center;
+  background:var(--card);
+  color:var(--text);
+}
+
+.theme-choice.selected {border-color:var(--accent)}
+
+.bar {
+  height:12px;
+  background:var(--soft);
+  border-radius:20px;
+  overflow:hidden;
+  margin:8px 0;
+}
+
+.bar div {
+  height:100%;
+  background:var(--accent);
+  border-radius:20px;
+}
+
+footer {
+  text-align:center;
+  color:var(--muted);
+  padding:30px;
+  font-size:12px;
+}
+
+.empty {
+  color:var(--muted);
+  text-align:center;
+  padding:20px;
+}
+
+@media(max-width:600px) {
+  .screen {padding:14px}
+  #content {padding:14px}
+  .topbar {position:relative}
+  .hero h1 {font-size:27px}
+  .card {padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<!-- WELCOME -->
+
+<section id="welcome" class="welcome">
+  <div class="welcome-box">
+    <p class="muted">A LITTLE SPACE FOR YOUR BIG DREAMS</p>
+    <h1 class="logo">DAYDREAM</h1>
+    <p class="tagline">
+      Your life, your goals, your space.<br>
+      Let's make it yours ♡
+    </p>
+    <button class="primary" onclick="startApp()">
+      Let's get started →
+    </button>
+    <p class="muted">A space to organise, create and grow.</p>
+  </div>
+</section>
+
+<!-- SURVEY -->
+
+<section id="survey" class="screen hidden">
+  <p class="muted">YOUR DAYDREAM SETUP</p>
+  <h2>Let's personalise your space ✨</h2>
+  <p>Choose what you want in your dashboard.</p>
+
+  <div class="progress"><div id="surveyProgress"></div></div>
+
+  <div id="surveyQuestion"></div>
+
+  <div class="row">
+    <button class="secondary" onclick="surveyBack()">← Back</button>
+    <button class="primary" onclick="surveyNext()">Next →</button>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="hidden">
+
+  <header class="topbar">
+    <div class="brand">DAYDREAM ♡</div>
+    <div class="row">
+      <span id="topDate" class="muted"></span>
+      <button class="secondary small-btn" onclick="showPage('Settings')">
+        ⚙ Settings
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav" id="nav"></nav>
+
+  <main id="content"></main>
+
+  <footer>DAYDREAM · Your space, your pace ♡</footer>
+
+</section>
+</div>
+
+<script>
+
+/* =====================================
+   DAYDREAM - MAIN APP
+===================================== */
+
+const STORAGE_KEY = "daydream_complete_v2";
+
+const themes = {
+  "Pink":["#fff8fb","#ffffff","#392c35","#c77d9e","#f8e8ef","#f0dce5"],
+  "Cream":["#faf5e9","#fffdf6","#443a2d","#b28b55","#f1e5ce","#e9ddc6"],
+  "Espresso":["#211b19","#302824","#fff4e9","#c18b67","#49372e","#59463b"],
+  "Lavender":["#f8f5ff","#ffffff","#3c3150","#9c83c5","#eee7fb","#e4daf4"],
+  "Baby blue":["#f3faff","#ffffff","#26394b","#6ca6d5","#e1f1fc","#d6e9f6"],
+  "Sage":["#f4f8f1","#ffffff","#344332","#7c9a76","#e5eee0","#dce7d8"],
+  "Burgundy":["#fbf3f5","#ffffff","#45232d","#9a5066","#f1dfe5","#ead3db"],
+  "Black & white":["#f5f5f5","#ffffff","#222222","#555555","#e8e8e8","#dddddd"],
+  "Yellow":["#fffbed","#ffffff","#493d20","#c6a333","#fff1c5","#eee2b4"],
+  "Navy":["#f2f5fb","#ffffff","#26304b","#657da9","#e2e8f5","#d5deef"],
+  "Rainbow":["#fff8f7","#ffffff","#3e3441","#bb7c9c","#f7e7ee","#eddae4"]
+};
+
+const featureNames = [
+  "To-do lists","Calendar","Goals","Journal",
+  "Mood tracker","Habit tracker","Progress charts",
+  "Countdowns","Notes","Reminders"
+];
+
+const trackerNames = [
+  "Reading","Water","Crochet projects","Money savings",
+  "Study","Exercise","Skincare","Sleep","Baking",
+  "Creative projects"
+];
+
+const questions = [
+  {
+    key:"name",
+    title:"First, what should we call you?",
+    type:"text",
+    placeholder:"Your name"
+  },
+  {
+    key:"trackers",
+    title:"Which trackers would you like?",
+    type:"multi",
+    options:trackerNames
+  },
+  {
+    key:"features",
+    title:"What else should your space include?",
+    type:"multi",
+    options:featureNames
+  },
+  {
+    key:"theme",
+    title:"Choose your theme",
+    type:"single",
+    options:Object.keys(themes)
+  },
+  {
+    key:"layout",
+    title:"How should your dashboard feel?",
+    type:"single",
+    options:[
+      "Cosy and organised",
+      "Minimal and clean",
+      "Colourful and creative",
+      "Pinterest-inspired"
+    ]
+  },
+  {
+    key:"reminderPreference",
+    title:"Would you like reminders?",
+    type:"single",
+    options:[
+      "Yes, remind me",
+      "Only a few reminders",
+      "No reminders"
+    ]
+  },
+  {
+    key:"checkin",
+    title:"Would you like an evening check-in?",
+    type:"single",
+    options:["Yes please","No thanks"]
+  }
+];
+
+let data = {};
+let qIndex = 0;
+let answers = {};
+let currentPage = "Home";
+
+function defaults() {
+  return {
+    name:"Dreamer",
+    onboarded:false,
+    theme:"Pink",
+    preferences:{
+      trackers:[],
+      features:[],
+      layout:"Cosy and organised",
+      reminderPreference:"Only a few reminders",
+      checkin:"Yes please"
+    },
+    trackers:[],
+    entries:[],
+    tasks:[],
+    goals:[],
+    events:[],
+    habits:[],
+    habitChecks:{},
+    moods:[],
+    journal:[],
+    notes:[],
+    countdowns:[],
+    reminders:[],
+    checkins:[]
+  };
+}
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved) {
+      const parsed = JSON.parse(saved);
+      data = {...defaults(),...parsed};
+      data.preferences = {
+        ...defaults().preferences,
+        ...(parsed.preferences||{})
+      };
+    } else {
+      data = defaults();
+    }
+  } catch(e) {
+    data = defaults();
+  }
+}
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  } catch(e) {
+    alert("Your browser could not save the changes. Check your storage settings.");
+  }
+}
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
+function uid() {
+  return Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+}
+
+function today() {
+  const d = new Date();
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function dateText() {
+  return new Date().toLocaleDateString("en-US",{
+    weekday:"long",
+    month:"long",
+    day:"numeric",
+    year:"numeric"
+  });
+}
+
+function applyTheme() {
+  const t = themes[data.theme] || themes.Pink;
+  const root = document.documentElement;
+
+  ["--bg","--card","--text","--accent","--soft","--border"].forEach((key,i)=>{
+    root.style.setProperty(key,t[i]);
+  });
+}
+
+function startApp() {
+  if(data.onboarded) {
+    openDashboard();
+    return;
+  }
+
+  $("welcome").classList.add("hidden");
+  $("survey").classList.remove("hidden");
+
+  qIndex=0;
+  answers={};
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q=questions[qIndex];
+
+  $("surveyProgress").style.width =
+    ((qIndex+1)/questions.length*100)+"%";
+
+  let html=`<h2>${safe(q.title)}</h2>`;
+
+  if(q.type==="text") {
+    html+=`
+      <input id="answerText"
+        placeholder="${safe(q.placeholder)}"
+        value="${safe(answers.name||"")}">
+    `;
+  } else {
+    html+=`<div class="option-grid">`;
+
+    q.options.forEach(o=>{
+      const selected=q.type==="multi"
+        ?(answers[q.key]||[]).includes(o)
+        :answers[q.key]===o;
+
+      html+=`
+        <button class="option ${selected?"selected":""}"
+          onclick="pickAnswer('${safe(o)}')">
+          ${safe(o)}
+        </button>
+      `;
+    });
+
+    html+="</div>";
+  }
+
+  $("surveyQuestion").innerHTML=html;
+}
+
+function pickAnswer(value) {
+  const q=questions[qIndex];
+
+  if(q.type==="multi") {
+    let arr=answers[q.key]||[];
+
+    answers[q.key]=arr.includes(value)
+      ?arr.filter(x=>x!==value)
+      :[...arr,value];
+  } else {
+    answers[q.key]=value;
+  }
+
+  renderQuestion();
+}
+
+function surveyNext() {
+  const q=questions[qIndex];
+
+  if(q.type==="text") {
+    answers.name=$("answerText").value.trim()||"Dreamer";
+  }
+
+  if(q.type==="multi"&&!answers[q.key]) {
+    answers[q.key]=[];
+  }
+
+  if(q.type==="single"&&!answers[q.key]) {
+    alert("Choose an option to continue.");
+    return;
+  }
+
+  if(qIndex<questions.length-1) {
+    qIndex++;
+    renderQuestion();
+  } else {
+    finishSurvey();
+  }
+}
+
+function surveyBack() {
+  if(qIndex>0) {
+    qIndex--;
+    renderQuestion();
+  } else {
+    $("survey").classList.add("hidden");
+    $("welcome").classList.remove("hidden");
+  }
+}
+
+function finishSurvey() {
+  data.name=answers.name||"Dreamer";
+
+  data.preferences={
+    trackers:answers.trackers||[],
+    features:answers.features||[],
+    layout:answers.layout||"Cosy and organised",
+    reminderPreference:answers.reminderPreference||"Only a few reminders",
+    checkin:answers.checkin||"Yes please"
+  };
+
+  data.theme=answers.theme||"Pink";
+  data.onboarded=true;
+
+  data.trackers=data.preferences.trackers.map(name=>({
+    id:uid(),
+    name,
+    unit:
+      name==="Reading"?"pages":
+      name==="Water"?"glasses":
+      name==="Money savings"?"AED":
+      name==="Sleep"?"hours":"times",
+    target:1
+  }));
+
+  save();
+  openDashboard();
+}
+
+/* =====================================
+   NAVIGATION
+===================================== */
+
+const pageList=[
+  "Home","Trackers","To-do","Goals","Calendar",
+  "Habits","Progress","Mood","Journal","Notes",
+  "Countdowns","Reminders","Check-in","Settings"
+];
+
+const pageFeature={
+  "To-do":"To-do lists",
+  "Goals":"Goals",
+  "Calendar":"Calendar",
+  "Habits":"Habit tracker",
+  "Progress":"Progress charts",
+  "Mood":"Mood tracker",
+  "Journal":"Journal",
+  "Notes":"Notes",
+  "Countdowns":"Countdowns",
+  "Reminders":"Reminders"
+};
+
+function openDashboard() {
+  $("welcome").classList.add("hidden");
+  $("survey").classList.add("hidden");
+  $("dashboard").classList.remove("hidden");
+
+  applyTheme();
+  $("topDate").textContent=dateText();
+
+  buildNav();
+  showPage("Home");
+}
+
+function buildNav() {
+  const nav=$("nav");
+  nav.innerHTML="";
+
+  pageList.forEach(page=>{
+    const feature=pageFeature[page];
+
+    if(feature && !(data.preferences.features||[]).includes(feature)) return;
+
+    const button=document.createElement("button");
+    button.textContent=page;
+    button.id="nav"+page;
+    button.onclick=()=>showPage(page);
+    nav.appendChild(button);
+  });
+}
+
+function showPage(page) {
+  currentPage=page;
+
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+
+  if($("nav"+page)) $("nav"+page).classList.add("active");
+
+  const renderers={
+    "Home":homePage,
+    "Trackers":trackersPage,
+    "To-do":tasksPage,
+    "Goals":goalsPage,
+    "Calendar":calendarPage,
+    "Habits":habitsPage,
+    "Progress":progressPage,
+    "Mood":moodPage,
+    "Journal":journalPage,
+    "Notes":notesPage,
+    "Countdowns":countdownsPage,
+    "Reminders":remindersPage,
+    "Check-in":checkinPage,
+    "Settings":settingsPage
+  };
+
+  (renderers[page]||homePage)();
+}
+
+function heading(title,description) {
+  return `
+    <h2>${title}</h2>
+    <p class="muted">${description}</p>
+  `;
+}
+
+function empty(message) {
+  return `<div class="empty">${message}</div>`;
+}
+
+function deleteButton(action) {
+  return `<button class="small-btn danger" onclick="${action}">Delete</button>`;
+}
+
+/* =====================================
+   HOME
+===================================== */
+
+function homePage() {
+  const completed=data.tasks.filter(t=>t.done).length;
+  const total=data.tasks.length;
+
+  $("content").innerHTML=`
+    <div class="hero">
+      <p class="muted">${dateText()}</p>
+      <h1>Welcome back, ${safe(data.name)} ♡</h1>
+      <p>Your space. Your plans. Your little wins.</p>
+      <button class="primary" onclick="showPage('Check-in')">
+        Daily check-in →
+      </button>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <span class="muted">TRACKERS</span>
+        <div class="stat">${data.trackers.length}</div>
+        <p class="muted">Things you're keeping track of</p>
+      </div>
+
+      <div class="card">
+        <span class="muted">TASKS COMPLETED</span>
+        <div class="stat">${completed}/${total}</div>
+        <p class="muted">Little steps count</p>
+      </div>
+
+      <div class="card">
+        <span class="muted">GOALS</span>
+        <div class="stat">${data.goals.length}</div>
+        <p class="muted">Things you're working towards</p>
+      </div>
+    </div>
+
+    <h2>Your space ✨</h2>
+
+    <div class="grid">
+      ${[
+        ["Trackers","📊"],
+        ["To-do","☑️"],
+        ["Goals","🎯"],
+        ["Calendar","🗓️"],
+        ["Habits","🌱"],
+        ["Mood","🌸"],
+        ["Journal","📖"],
+        ["Notes","📝"],
+        ["Progress","⭐"]
+      ].map(([page,emoji])=>{
+        if(pageFeature[page] &&
+          !data.preferences.features.includes(pageFeature[page])) return "";
+
+        return `
+          <button class="card option" onclick="showPage('${page}')">
+            <h3>${emoji} ${page}</h3>
+            <span class="muted">Open your ${page.toLowerCase()} space →</span>
+          </button>
+        `;
+      }).join("")}
+    </div>
+
+    <h2>Today's tasks</h2>
+
+    ${data.tasks.filter(t=>!t.done).slice(0,5).map(t=>`
+      <div class="card row">
+        ${safe(t.name)}
+        <span class="pill">${safe(t.priority)}</span>
+      </div>
+    `).join("")||empty("Nothing waiting for you. Enjoy the space! ♡")}
+
+    <h2>Little reminder</h2>
+    <div class="card">
+      You don't have to do everything today. Small steps are still progress. ♡
+    </div>
+  `;
+}
+
+/* =====================================
+   TRACKERS
+===================================== */
+
+function trackersPage() {
+  $("content").innerHTML=`
+    ${heading("Your trackers ✨","Keep track of the things that matter to you.")}
+
+    <div class="card">
+      <h3>Create a tracker</h3>
+
+      <label>Tracker name</label>
+      <input id="trackerName" placeholder="e.g. Baking">
+
+      <label>Unit</label>
+      <input id="trackerUnit" placeholder="e.g. projects, pages, AED">
+
+      <label>Target</label>
+      <input id="trackerTarget" type="number" min="0" placeholder="e.g. 5">
+
+      <button class="primary" onclick="addTracker()">Create tracker</button>
+    </div>
+
+    <div class="grid">
+      ${data.trackers.map(t=>{
+        const total=data.entries
+          .filter(e=>e.trackerId===t.id)
+          .reduce((s,e)=>s+Number(e.amount),0);
+
+        return `
+          <div class="card">
+            <div class="row">
+              <h3>${safe(t.name)}</h3>
+              ${deleteButton(`removeTracker('${t.id}')`)}
+            </div>
+
+            <div class="stat">${total} <small>${safe(t.unit)}</small></div>
+            <p class="muted">Target: ${t.target||"Not set"} ${safe(t.unit)}</p>
+
+            <label>Add amount</label>
+            <input id="amount${t.id}" type="number" min="0.01" step="any" placeholder="Amount">
+
+            <input id="entryNote${t.id}" placeholder="Optional note">
+
+            <button class="primary" onclick="addEntry('${t.id}')">Add entry</button>
+            <button class="secondary" onclick="trackerHistory('${t.id}')">History</button>
+          </div>
+        `;
+      }).join("")||empty("Create your first tracker!")}
+    </div>
+
+    <div id="trackerHistory"></div>
+  `;
+}
+
+function addTracker() {
+  const name=$("trackerName").value.trim();
+  const unit=$("trackerUnit").value.trim()||"times";
+
+  if(!name) return alert("Give your tracker a name.");
+
+  if(data.trackers.some(t=>t.name.toLowerCase()===name.toLowerCase())) {
+    return alert("That tracker already exists.");
+  }
+
+  data.trackers.push({
+    id:uid(),name,unit,
+    target:Number($("trackerTarget").value)||0
+  });
+
+  save();
+  trackersPage();
+}
+
+function removeTracker(id) {
+  if(!confirm("Delete this tracker and its entries?")) return;
+
+  data.trackers=data.trackers.filter(t=>t.id!==id);
+  data.entries=data.entries.filter(e=>e.trackerId!==id);
+
+  save();
+  trackersPage();
+}
+
+function addEntry(id) {
+  const amount=Number($("amount"+id).value);
+
+  if(!Number.isFinite(amount)||amount<=0) {
+    return alert("Enter an amount greater than zero.");
+  }
+
+  data.entries.push({
+    id:uid(),
+    trackerId:id,
+    tracker:data.trackers.find(t=>t.id===id)?.name||"",
+    amount,
+    note:$("entryNote"+id).value.trim(),
+    date:today()
+  });
+
+  save();
+  trackersPage();
+}
+
+function trackerHistory(id) {
+  const t=data.trackers.find(t=>t.id===id);
+  if(!t) return;
+
+  const entries=data.entries.filter(e=>e.trackerId===id);
+
+  $("trackerHistory").innerHTML=`
+    <div class="card">
+      <h3>${safe(t.name)} history</h3>
+      ${entries.map(e=>`
+        <div class="item">
+          ${safe(e.date)} · ${e.amount} ${safe(t.unit)}
+          ${e.note?" — "+safe(e.note):""}
+        </div>
+      `).join("")||empty("No entries yet.")}
+    </div>
+  `;
+}
+
+/* =====================================
+   TO-DO LIST
+===================================== */
+
+function tasksPage() {
+  $("content").innerHTML=`
+    ${heading("My to-do list ☑️","One little step at a time.")}
+
+    <div class="card">
+      <h3>Add a task</h3>
+
+      <input id="taskName" placeholder="What needs to be done?">
+
+      <label>Priority</label>
+      <select id="taskPriority">
+        <option>Normal</option>
+        <option>Important</option>
+        <option>Urgent</option>
+      </select>
+
+      <label>Due date</label>
+      <input id="taskDate" type="date">
+
+      <button class="primary" onclick="addTask()">Add task +</button>
+    </div>
+
+    <div class="card">
+      <h3>My tasks</h3>
+
+      ${data.tasks.map(t=>`
+        <div class="item">
+          <div class="row">
+            <label class="checkline">
+              <input type="checkbox" ${t.done?"checked":""}
+                onchange="toggleTask('${t.id}')">
+              <span style="${t.done?"text-decoration:line-through;opacity:.5":""}">
+                ${safe(t.name)}
+              </span>
+            </label>
+            ${deleteButton(`deleteTask('${t.id}')`)}
+          </div>
+          <span class="pill">${safe(t.priority)}</span>
+          ${t.date?`<span class="pill">${safe(t.date)}</span>`:""}
+        </div>
+      `).join("")||empty("Your to-do list is empty. Add something!")}
+    </div>
+
+    <p class="muted">
+      Completed: ${data.tasks.filter(t=>t.done).length}/${data.tasks.length}
+    </p>
+  `;
+}
+
+function addTask() {
+  const name=$("taskName").value.trim();
+  if(!name) return alert("Enter a task.");
+
+  data.tasks.push({
+    id:uid(),
+    name,
+    priority:$("taskPriority").value,
+    date:$("taskDate").value,
+    done:false
+  });
+
+  save();
+  tasksPage();
+}
+
+function toggleTask(id) {
+  const t=data.tasks.find(t=>t.id===id);
+  if(t) t.done=!t.done;
+  save();
+  tasksPage();
+}
+
+function deleteTask(id) {
+  data.tasks=data.tasks.filter(t=>t.id!==id);
+  save();
+  tasksPage();
+}
+
+/* =====================================
+   GOALS
+===================================== */
+
+function goalsPage() {
+  $("content").innerHTML=`
+    ${heading("My goals 🎯","Dream big, start small.")}
+
+    <div class="card">
+      <h3>Create a goal</h3>
+      <input id="goalName" placeholder="What do you want to achieve?">
+      <textarea id="goalDescription" placeholder="Why is this important to you?"></textarea>
+      <label>Target date</label>
+      <input id="goalDate" type="date">
+      <button class="primary" onclick="addGoal()">Add goal +</button>
+    </div>
+
+    <div class="grid">
+      ${data.goals.map(g=>`
+        <div class="card">
+          <div class="row">
+            <h3>${safe(g.name)}</h3>
+            ${deleteButton(`deleteGoal('${g.id}')`)}
+          </div>
+
+          <p>${safe(g.description)}</p>
+          ${g.date?`<p class="muted">Target: ${safe(g.date)}</p>`:""}
+
+          <p>Progress: ${g.progress}%</p>
+          <div class="bar"><div style="width:${g.progress}%"></div></div>
+
+          <input type="range" min="0" max="100"
+            value="${g.progress}"
+            oninput="updateGoal('${g.id}',this.value)">
+        </div>
+      `).join("")||empty("You haven't added any goals yet.")}
+    </div>
+  `;
+}
+
+function addGoal() {
+  const name=$("goalName").value.trim();
+  if(!name) return alert("Enter a goal.");
+
+  data.goals.push({
+    id:uid(),
+    name,
+    description:$("goalDescription").value.trim(),
+    date:$("goalDate").value,
+    progress:0
+  });
+
+  save();
+  goalsPage();
+}
+
+function updateGoal(id,value) {
+  const g=data.goals.find(g=>g.id===id);
+  if(!g) return;
+
+  g.progress=Number(value);
+  save();
+
+  const bar=document.querySelector(`[oninput="updateGoal('${id}',this.value)"]`);
+  if(bar) {
+    const card=bar.closest(".card");
+    card.querySelector(".bar div").style.width=value+"%";
+    card.querySelector("p:nth-of-type(2)").textContent="Progress: "+value+"%";
+  }
+}
+
+function deleteGoal(id) {
+  data.goals=data.goals.filter(g=>g.id!==id);
+  save();
+  goalsPage();
+}
+
+/* =====================================
+   CALENDAR
+===================================== */
+
+function calendarPage() {
+  const events=[...data.events].sort((a,b)=>a.date.localeCompare(b.date));
+
+  $("content").innerHTML=`
+    ${heading("My Calendar 🗓️","Keep track of important dates and plans.")}
+
+    <div class="card">
+      <h3>Add an event</h3>
+      <input id="eventName" placeholder="Event name">
+      <label>Date</label>
+      <input id="eventDate" type="date">
+      <label>Time (optional)</label>
+      <input id="eventTime" type="time">
+      <button class="primary" onclick="addEvent()">Add event +</button>
+    </div>
+
+    <div class="card">
+      <h3>Upcoming events</h3>
+
+      ${events.map(e=>`
+        <div class="item row">
+          <div>
+            <strong>${safe(e.name)}</strong>
+            <p class="muted">${safe(e.date)} ${e.time?"· "+safe(e.time):""}</p>
+          </div>
+          ${deleteButton(`deleteEvent('${e.id}')`)}
+        </div>
+      `).join("")||empty("No events yet. Add your first one!")}
+    </div>
+  `;
+}
+
+function addEvent() {
+  const name=$("eventName").value.trim();
+  const date=$("eventDate").value;
+
+  if(!name||!date) return alert("Enter an event name and date.");
+
+  data.events.push({
+    id:uid(),name,date,
+    time:$("eventTime").value
+  });
+
+  save();
+  calendarPage();
+}
+
+function deleteEvent(id) {
+  data.events=data.events.filter(e=>e.id!==id);
+  save();
+  calendarPage();
+}
+
+/* =====================================
+   HABITS
+===================================== */
+
+function habitsPage() {
+  $("content").innerHTML=`
+    ${heading("Habit Tracker 🌱","Small actions can become big habits.")}
+
+    <div class="card">
+      <h3>Create a habit</h3>
+      <input id="habitName" placeholder="e.g. Read for 20 minutes">
+      <button class="primary" onclick="addHabit()">Add habit +</button>
+    </div>
+
+    <div class="card">
+      <h3>Today's habits</h3>
+
+      ${data.habits.map(h=>{
+        const checked=!!data.habitChecks[today()+"_"+h.id];
+
+        return `
+          <div class="item row">
+            <label class="checkline">
+              <input type="checkbox" ${checked?"checked":""}
+                onchange="toggleHabit('${h.id}',this.checked)">
+              <span style="${checked?"text-decoration:line-through;opacity:.5":""}">
+                ${safe(h.name)}
+              </span>
+            </label>
+            ${deleteButton(`deleteHabit('${h.id}')`)}
+          </div>
+        `;
+      }).join("")||empty("You haven't added any habits yet.")}
+    </div>
+
+    <p class="muted">
+      Completed today:
+      ${data.habits.filter(h=>data.habitChecks[today()+"_"+h.id]).length}
+      /${data.habits.length}
+    </p>
+  `;
+}
+
+function addHabit() {
+  const name=$("habitName").value.trim();
+  if(!name) return alert("Give your habit a name.");
+
+  data.habits.push({id:uid(),name});
+  save();
+  habitsPage();
+}
+
+function toggleHabit(id,checked) {
+  data.habitChecks[today()+"_"+id]=checked;
+  save();
+  habitsPage();
+}
+
+function deleteHabit(id) {
+  data.habits=data.habits.filter(h=>h.id!==id);
+
+  Object.keys(data.habitChecks).forEach(key=>{
+    if(key.endsWith("_"+id)) delete data.habitChecks[key];
+  });
+
+  save();
+  habitsPage();
+}
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+function progressPage() {
+  const completed=data.tasks.filter(t=>t.done).length;
+  const total=data.tasks.length;
+  const habitsDone=data.habits.filter(h=>data.habitChecks[today()+"_"+h.id]).length;
+
+  const taskPercent=total?Math.round(completed/total*100):0;
+  const habitPercent=data.habits.length?
+    Math.round(habitsDone/data.habits.length*100):0;
+
+  $("content").innerHTML=`
+    ${heading("My Progress ⭐","Look at how far you've come.")}
+
+    <div class="grid">
+      <div class="card">
+        <h3>Tasks</h3>
+        <div class="stat">${completed}/${total}</div>
+        <div class="bar"><div style="width:${taskPercent}%"></div></div>
+        <p class="muted">${taskPercent}% completed</p>
+      </div>
+
+      <div class="card">
+        <h3>Habits today</h3>
+        <div class="stat">${habitsDone}/${data.habits.length}</div>
+        <div class="bar"><div style="width:${habitPercent}%"></div></div>
+        <p class="muted">${habitPercent}% completed</p>
+      </div>
+
+      <div class="card">
+        <h3>Goals</h3>
+        <div class="stat">${data.goals.length}</div>
+        <p class="muted">Dreams you're working towards</p>
+      </div>
+
+      <div class="card">
+        <h3>Tracker entries</h3>
+        <div class="stat">${data.entries.length}</div>
+        <p class="muted">Little wins recorded</p>
+      </div>
+    </div>
+
+    <h3>Your goals progress</h3>
+
+    ${data.goals.map(g=>`
+      <div class="card">
+        <div class="row">
+          <strong>${safe(g.name)}</strong>
+          <span>${g.progress}%</span>
+        </div>
+        <div class="bar"><div style="width:${g.progress}%"></div></div>
+      </div>
+    `).join("")||empty("Add goals to see your progress here.")}
+  `;
+}
+
+/* =====================================
+   MOOD TRACKER
+===================================== */
+
+function moodPage() {
+  const moods=[
+    ["😊","Happy"],
+    ["🥰","Loved"],
+    ["😌","Calm"],
+    ["🥺","Emotional"],
+    ["😴","Tired"],
+    ["😔","Sad"],
+    ["😤","Frustrated"],
+    ["😰","Anxious"],
+    ["🤩","Excited"]
+  ];
+
+  $("content").innerHTML=`
+    ${heading("Mood Tracker 🌸","How are you feeling today?")}
+
+    <div class="card">
+      <h3>Choose your mood</h3>
+
+      <div class="mood-grid">
+        ${moods.map(([emoji,name])=>`
+          <button class="mood-option" onclick="saveMood('${name}','${emoji}')">
+            ${emoji}<small>${name}</small>
+          </button>
+        `).join("")}
+      </div>
+
+      <label>Anything you'd like to add?</label>
+      <textarea id="moodNote" placeholder="Write about your day..."></textarea>
+    </div>
+
+    <div class="card">
+      <h3>Your mood history</h3>
+
+      ${[...data.moods].reverse().map(m=>`
+        <div class="item">
+          <strong>${m.emoji} ${safe(m.mood)}</strong>
+          <p class="muted">${safe(m.date)}</p>
+          ${m.note?`<p>${safe(m.note)}</p>`:""}
+        </div>
+      `).join("")||empty("Your mood history will appear here.")}
+    </div>
+  `;
+}
+
+function saveMood(mood,emoji) {
+  data.moods.push({
+    id:uid(),
+    mood,emoji,
+    note:$("moodNote").value.trim(),
+    date:today()
+  });
+
+  save();
+  moodPage();
+}
+
+/* =====================================
+   JOURNAL
+===================================== */
+
+function journalPage() {
+  $("content").innerHTML=`
+    ${heading("My Journal 📖","A little space for your thoughts.")}
+
+    <div class="card">
+      <h3>Write an entry</h3>
+      <input id="journalTitle" placeholder="Give your entry a title">
+      <textarea id="journalText" placeholder="Dear diary..."></textarea>
+      <button class="primary" onclick="addJournal()">Save entry ♡</button>
+    </div>
+
+    <h3>Previous entries</h3>
+
+    ${[...data.journal].reverse().map(j=>`
+      <div class="card">
+        <div class="row">
+          <h3>${safe(j.title)}</h3>
+          ${deleteButton(`deleteJournal('${j.id}')`)}
+        </div>
+        <p class="muted">${safe(j.date)}</p>
+        <p style="white-space:pre-wrap">${safe(j.text)}</p>
+      </div>
+    `).join("")||empty("Your journal is waiting for its first entry.")}
+  `;
+}
+
+function addJournal() {
+  const text=$("journalText").value.trim();
+  const title=$("journalTitle").value.trim()||"My journal entry";
+
+  if(!text) return alert("Write something first.");
+
+  data.journal.push({id:uid(),title,text,date:today()});
+  save();
+  journalPage();
+}
+
+function deleteJournal(id) {
+  data.journal=data.journal.filter(j=>j.id!==id);
+  save();
+  journalPage();
+}
+
+/* =====================================
+   NOTES
+===================================== */
+
+function notesPage() {
+  $("content").innerHTML=`
+    ${heading("My Notes 📝","Save your ideas, lists and little reminders.")}
+
+    <div class="card">
+      <h3>Create a note</h3>
+      <input id="noteTitle" placeholder="Note title">
+      <textarea id="noteText" placeholder="Write your note here..."></textarea>
+      <button class="primary" onclick="addNote()">Save note +</button>
+    </div>
+
+    <div class="grid">
+      ${[...data.notes].reverse().map(n=>`
+        <div class="card">
+          <div class="row">
+            <h3>${safe(n.title)}</h3>
+            ${deleteButton(`deleteNote('${n.id}')`)}
+          </div>
+          <p class="muted">${safe(n.date)}</p>
+          <p style="white-space:pre-wrap">${safe(n.text)}</p>
+        </div>
+      `).join("")||empty("Your notes will appear here.")}
+    </div>
+  `;
+}
+
+function addNote() {
+  const text=$("noteText").value.trim();
+  const title=$("noteTitle").value.trim()||"Untitled note";
+
+  if(!text) return alert("Write a note first.");
+
+  data.notes.push({id:uid(),title,text,date:today()});
+  save();
+  notesPage();
+}
+
+function deleteNote(id) {
+  data.notes=data.notes.filter(n=>n.id!==id);
+  save();
+  notesPage();
+}
+
+/* =====================================
+   COUNTDOWNS
+===================================== */
+
+function countdownsPage() {
+  const now=new Date();
+
+  $("content").innerHTML=`
+    ${heading("Countdowns ⏳","Count down to the things you're excited about.")}
+
+    <div class="card">
+      <h3>Create a countdown</h3>
+      <input id="countdownName" placeholder="e.g. My birthday">
+      <label>Special date</label>
+      <input id="countdownDate" type="date">
+      <button class="primary" onclick="addCountdown()">Create countdown</button>
+    </div>
+
+    <div class="grid">
+      ${data.countdowns.map(c=>{
+        const target=new Date(c.date+"T00:00:00");
+        const days=Math.ceil((target-now)/(1000*60*60*24));
+
+        return `
+          <div class="card">
+            <div class="row">
+              <h3>${safe(c.name)}</h3>
+              ${deleteButton(`deleteCountdown('${c.id}')`)}
+            </div>
+            <div class="stat">${days<0?"Passed":days===0?"TODAY":days+" days"}</div>
+            <p class="muted">${safe(c.date)}</p>
+          </div>
+        `;
+      }).join("")||empty("Add something exciting to count down to!")}
+    </div>
+  `;
+}
+
+function addCountdown() {
+  const name=$("countdownName").value.trim();
+  const date=$("countdownDate").value;
+
+  if(!name||!date) return alert("Enter a name and date.");
+
+  data.countdowns.push({id:uid(),name,date});
+  save();
+  countdownsPage();
+}
+
+function deleteCountdown(id) {
+  data.countdowns=data.countdowns.filter(c=>c.id!==id);
+  save();
+  countdownsPage();
+}
+
+/* =====================================
+   REMINDERS
+===================================== */
+
+function remindersPage() {
+  $("content").innerHTML=`
+    ${heading("My Reminders 🔔","Keep the little things from slipping your mind.")}
+
+    <div class="card">
+      <h3>Create a reminder</h3>
+      <input id="reminderName" placeholder="What do you need to remember?">
+      <label>Date</label>
+      <input id="reminderDate" type="date">
+      <label>Time</label>
+      <input id="reminderTime" type="time">
+      <button class="primary" onclick="addReminder()">Add reminder</button>
+    </div>
+
+    <div class="card">
+      <h3>Your reminders</h3>
+
+      ${[...data.reminders].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).map(r=>`
+        <div class="item row">
+          <div>
+            <strong>${safe(r.name)}</strong>
+            <p class="muted">${safe(r.date)} · ${safe(r.time||"No time set")}</p>
+          </div>
+          ${deleteButton(`deleteReminder('${r.id}')`)}
+        </div>
+      `).join("")||empty("No reminders yet.")}
+    </div>
+
+    <p class="muted">
+      Note: These are saved reminders inside DAYDREAM. They do not automatically send phone notifications.
+    </p>
+  `;
+}
+
+function addReminder() {
+  const name=$("reminderName").value.trim();
+  const date=$("reminderDate").value;
+
+  if(!name||!date) return alert("Enter a reminder and date.");
+
+  data.reminders.push({
+    id:uid(),
+    name,date,
+    time:$("reminderTime").value
+  });
+
+  save();
+  remindersPage();
+}
+
+function deleteReminder(id) {
+  data.reminders=data.reminders.filter(r=>r.id!==id);
+  save();
+  remindersPage();
+}
+
+/* =====================================
+   DAILY CHECK-IN
+===================================== */
+
+function checkinPage() {
+  const existing=data.checkins.find(c=>c.date===today());
+
+  $("content").innerHTML=`
+    ${heading("Daily Check-in ♡","Take a moment for yourself.")}
+
+    <div class="card">
+      <h3>How are you feeling today?</h3>
+
+      <label>What's one thing you're grateful for?</label>
+      <textarea id="grateful" placeholder="I'm grateful for...">${safe(existing?.grateful||"")}</textarea>
+
+      <label>What's your main focus today?</label>
+      <textarea id="focus" placeholder="Today I want to...">${safe(existing?.focus||"")}</textarea>
+
+      <label>What do you need today?</label>
+      <textarea id="need" placeholder="I need...">${safe(existing?.need||"")}</textarea>
+
+      <label>Today's affirmation</label>
+      <textarea id="affirmation" placeholder="I am capable of...">${safe(existing?.affirmation||"")}</textarea>
+
+      <button class="primary" onclick="saveCheckin()">Save my check-in ♡</button>
+    </div>
+
+    ${existing?`
+      <p class="muted">You've already checked in today. You can update your answers anytime.</p>
+    `:""}
+  `;
+}
+
+function saveCheckin() {
+  const entry={
+    date:today(),
+    grateful:$("grateful").value.trim(),
+    focus:$("focus").value.trim(),
+    need:$("need").value.trim(),
+    affirmation:$("affirmation").value.trim()
+  };
+
+  const index=data.checkins.findIndex(c=>c.date===today());
+
+  if(index>=0) data.checkins[index]=entry;
+  else data.checkins.push(entry);
+
+  save();
+
+  alert("Your check-in has been saved. Well done for taking a moment for yourself! ♡");
+  checkinPage();
+}
+
+/* =====================================
+   SETTINGS
+===================================== */
+
+function settingsPage() {
+  $("content").innerHTML=`
+    ${heading("Settings ⚙️","Make DAYDREAM feel like yours.")}
+
+    <div class="card">
+      <h3>Your profile</h3>
+
+      <label>Your name</label>
+      <input id="settingsName" value="${safe(data.name)}">
+
+      <button class="primary" onclick="updateName()">Save name</button>
+    </div>
+
+    <div class="card">
+      <h3>Choose your theme 🎨</h3>
+
+      <div class="grid">
+        ${Object.keys(themes).map(name=>`
+          <button class="theme-choice ${data.theme===name?"selected":""}"
+            onclick="changeTheme('${name}')">
+            ${safe(name)}
+          </button>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Your dashboard features</h3>
+      <p class="muted">Choose which sections appear in your navigation.</p>
+
+      ${featureNames.map(f=>`
+        <label class="checkline">
+          <input type="checkbox"
+            ${data.preferences.features.includes(f)?"checked":""}
+            onchange="toggleFeature('${f}',this.checked)">
+          ${safe(f)}
+        </label>
+      `).join("")}
+    </div>
+
+    <div class="card">
+      <h3>Personalisation</h3>
+
+      <label>Dashboard layout</label>
+      <select id="settingsLayout">
+        ${[
+          "Cosy and organised",
+          "Minimal and clean",
+          "Colourful and creative",
+          "Pinterest-inspired"
+        ].map(v=>`
+          <option ${data.preferences.layout===v?"selected":""}>${v}</option>
+        `).join("")}
+      </select>
+
+      <label>Reminder preference</label>
+      <select id="settingsReminder">
+        ${[
+          "Yes, remind me",
+          "Only a few reminders",
+          "No reminders"
+        ].map(v=>`
+          <option ${data.preferences.reminderPreference===v?"selected":""}>${v}</option>
+        `).join("")}
+      </select>
+
+      <button class="primary" onclick="savePreferences()">Save preferences</button>
+    </div>
+
+    <div class="card">
+      <h3>Data management</h3>
+      <p class="muted">Your information is stored in this browser.</p>
+
+      <button class="secondary" onclick="exportData()">Download my data</button>
+      <button class="danger" onclick="resetApp()">Reset DAYDREAM</button>
+    </div>
+
+    <div class="card">
+      <h3>About DAYDREAM ♡</h3>
+      <p>Your life, your goals, your space.</p>
+      <p class="muted">A little space to organise, create and grow.</p>
+    </div>
+  `;
+}
+
+function updateName() {
+  const name=$("settingsName").value.trim();
+
+  if(!name) return alert("Enter your name.");
+
+  data.name=name;
+  save();
+  homePage();
+}
+
+function changeTheme(name) {
+  data.theme=name;
+  save();
+  applyTheme();
+  settingsPage();
+}
+
+function toggleFeature(feature,checked) {
+  const list=data.preferences.features;
+
+  data.preferences.features=checked
+    ?[...new Set([...list,feature])]
+    :list.filter(f=>f!==feature);
+
+  save();
+  buildNav();
+}
+
+function savePreferences() {
+  data.preferences.layout=$("settingsLayout").value;
+  data.preferences.reminderPreference=$("settingsReminder").value;
+
+  save();
+  alert("Your preferences have been saved! ♡");
+  settingsPage();
+}
+
+function exportData() {
+  const blob=new Blob(
+    [JSON.stringify(data,null,2)],
+    {type:"application/json"}
+  );
+
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="daydream-backup.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function resetApp() {
+  if(!confirm("Are you sure? This will permanently delete your saved DAYDREAM data from this browser.")) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+  data=defaults();
+
+  $("dashboard").classList.add("hidden");
+  $("survey").classList.add("hidden");
+  $("welcome").classList.remove("hidden");
+}
+
+/* =====================================
+   START APPLICATION
+===================================== */
+
+loadData();
+
+if(data.onboarded) {
+  openDashboard();
+} else {
+  applyTheme();
+}
+
+</script>
+
+</body>
+</html>
